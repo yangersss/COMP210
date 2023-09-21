@@ -96,6 +96,35 @@ public class JavaWarmUp {
 
 		// TODO: Calculate & Print Category-wise Statistics
 		// Your code starts here:
+        /* foreach Category,
+              print category
+              int Array A - indicies of position of selected category in categoryT array
+
+              foreach item in categoryT, if they match, Array A, add the quantity to variable, print
+
+              total assemblingfee/total quantity = sum(assemblyfee * quantity)/totalquantity, print
+
+              profit = fee charged - (cost + time[in minutes] * worker's hourly rate)
+              (fee * quantity) - (cost of each + sum(time)/60 * 16)
+
+
+        */
+        // total products assembled
+        for (int i = 0; i < categoriesList.length; i++) {
+            int[] A = new int[numOfCategoriesC[i]];
+            System.out.println(categoriesList[i]);
+            int totQuantity = 0;
+            for (int j = 0; j < categoryT.length; j++) {
+                if (categoriesList[i].equals(categoryT[j])) {
+                    totQuantity += quantityT[j];
+                }
+            }
+        }
+
+        // average assembling fee per unit
+
+        // average net profit per unit
+
 
 		// Your code ends here.
     }

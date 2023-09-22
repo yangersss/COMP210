@@ -1,4 +1,5 @@
 package assn02;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 // Here is a starter code that you may optionally use for this assignment.
@@ -105,23 +106,31 @@ public class JavaWarmUp {
               total assemblingfee/total quantity = sum(assemblyfee * quantity)/totalquantity, print
 
               profit = fee charged - (cost + time[in minutes] * worker's hourly rate)
-              (fee * quantity) - (cost of each + sum(time)/60 * 16)
-
-
+              ((fee * quantity) - (cost of each + sum(time)/60 * 16))/totalquantity
+              (totAssemblyFee - sum(costs + time/60 * 16))/totQuantity
         */
-        // total products assembled
+
         for (int i = 0; i < categoriesList.length; i++) {
-            int[] A = new int[numOfCategoriesC[i]];
+            // total products assembled
+            ArrayList<Integer> A = new ArrayList<>();
             System.out.println(categoriesList[i]);
             int totQuantity = 0;
             for (int j = 0; j < categoryT.length; j++) {
                 if (categoriesList[i].equals(categoryT[j])) {
                     totQuantity += quantityT[j];
+                    A.add(j);
                 }
             }
+            System.out.println(totQuantity);
+            // average assembling fee per unit
+            double totAssemblyFee = 0;
+            for (int j = 0; j < A.size(); j++) {
+                totAssemblyFee += Assembling_fee[A.get(j)] * quantityT[A.get(j)];
+            }
+            System.out.printf("%.2f%n", totAssemblyFee/totQuantity);
+
         }
 
-        // average assembling fee per unit
 
         // average net profit per unit
 

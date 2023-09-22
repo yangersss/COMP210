@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 // Here is a starter code that you may optionally use for this assignment.
-// TODO: You need to complete these sections
+// TODD: You need to complete these sections
 
 public class JavaWarmUp {
     public static void main(String[] args) {
@@ -23,7 +23,7 @@ public class JavaWarmUp {
         double Assembling_Time [] = new double[n];
         double Energy_and_Device_Cost [] = new double[n];
 
-		// TODO: Fill in the above arrays with data entered from the console.
+		// TODD: Fill in the above arrays with data entered from the console.
 		// Your code starts here:
         for (int i = 0; i < n; i++){
             String str = s.next();
@@ -47,7 +47,7 @@ public class JavaWarmUp {
         int highestItemIndex = getMaxPriceIndex(Assembling_fee);
         int lowestItemIndex = getMinPriceIndex(Assembling_fee);
 
-		// TODO: Print items with highest and lowest price per unit.
+		// TODD: Print items with highest and lowest price per unit.
         /*
         9/21/22
         14:34
@@ -84,7 +84,7 @@ public class JavaWarmUp {
         including the cost of time spent (time multiplied by worker's hourly rate).
          */
 
-		// TODO: set the value of catIndex for each i to be such that categoryT[i] == categoriesList[i].
+		// TODD: set the value of catIndex for each i to be such that categoryT[i] == categoriesList[i].
 		// Your code starts here:
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < categoriesList.length; j++) {
@@ -95,7 +95,7 @@ public class JavaWarmUp {
         }
 		// Your code ends here.
 
-		// TODO: Calculate & Print Category-wise Statistics
+		// TODD: Calculate & Print Category-wise Statistics
 		// Your code starts here:
         /* foreach Category,
               print category
@@ -140,7 +140,7 @@ public class JavaWarmUp {
         }
     }
 
-    // TODO: Find index of item with the highest price per unit.
+    // TODD: Find index of item with the highest price per unit.
     static int getMaxPriceIndex(double[] priceT){
 		// Your code starts here:
         int index = 0;
@@ -155,7 +155,7 @@ public class JavaWarmUp {
 		// Your code ends here.
     }
 
-    // TODO: Find index of item with the lowest price per unit.
+    // TODD: Find index of item with the lowest price per unit.
     static int getMinPriceIndex(double[] priceT){
         // Your code starts here:
         int index = 0;

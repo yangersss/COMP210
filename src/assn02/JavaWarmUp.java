@@ -110,13 +110,13 @@ public class JavaWarmUp {
               (totAssemblyFee - sum(costs + time/60 * 16))/totQuantity
         */
 
-        for (int i = 0; i < categoriesList.length; i++) {
+        for (String string : categoriesList) {
             // total products assembled
             ArrayList<Integer> A = new ArrayList<>();
-            System.out.println(categoriesList[i]);
+            System.out.println(string);
             int totQuantity = 0;
             for (int j = 0; j < categoryT.length; j++) {
-                if (categoriesList[i].equals(categoryT[j])) {
+                if (string.equals(categoryT[j])) {
                     totQuantity += quantityT[j];
                     A.add(j);
                 }
@@ -125,15 +125,15 @@ public class JavaWarmUp {
 
             // average assembling fee per unit
             double totAssemblyFee = 0;
-            for (int j = 0; j < A.size(); j++) {
-                totAssemblyFee += Assembling_fee[A.get(j)] * quantityT[A.get(j)];
+            for (Integer integer : A) {
+                totAssemblyFee += Assembling_fee[integer] * quantityT[integer];
             }
             System.out.printf("%.2f%n", totAssemblyFee / totQuantity);
 
             // average net profit per unit
             double totCosts = 0;
-            for (int j = 0; j < A.size(); j++) {
-                totCosts += Energy_and_Device_Cost[A.get(j)] + Assembling_Time[A.get(j)] * 16;
+            for (Integer integer : A) {
+                totCosts += Energy_and_Device_Cost[integer] + Assembling_Time[integer] * 16;
             }
             System.out.printf("%.2f%n", (totAssemblyFee - totCosts) / totQuantity);
             // Your code ends here.

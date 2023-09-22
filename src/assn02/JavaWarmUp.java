@@ -106,7 +106,7 @@ public class JavaWarmUp {
               total assemblingfee/total quantity = sum(assemblyfee * quantity)/totalquantity, print
 
               profit = fee charged - (cost + time[in minutes] * worker's hourly rate)
-              ((fee * quantity) - (cost of each + sum(time)/60 * 16))/totalquantity
+              ((fee * quantity) - (cost of each + sum(time)/ * 16))/totalquantity
               (totAssemblyFee - sum(costs + time/60 * 16))/totQuantity
         */
 
@@ -122,20 +122,22 @@ public class JavaWarmUp {
                 }
             }
             System.out.println(totQuantity);
+
             // average assembling fee per unit
             double totAssemblyFee = 0;
             for (int j = 0; j < A.size(); j++) {
                 totAssemblyFee += Assembling_fee[A.get(j)] * quantityT[A.get(j)];
             }
-            System.out.printf("%.2f%n", totAssemblyFee/totQuantity);
+            System.out.printf("%.2f%n", totAssemblyFee / totQuantity);
 
+            // average net profit per unit
+            double totCosts = 0;
+            for (int j = 0; j < A.size(); j++) {
+                totCosts += Energy_and_Device_Cost[A.get(j)] + Assembling_Time[A.get(j)] * 16;
+            }
+            System.out.printf("%.2f%n", (totAssemblyFee - totCosts) / totQuantity);
+            // Your code ends here.
         }
-
-
-        // average net profit per unit
-
-
-		// Your code ends here.
     }
 
     // TODO: Find index of item with the highest price per unit.

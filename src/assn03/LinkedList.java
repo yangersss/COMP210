@@ -111,7 +111,7 @@ public class LinkedList<T> {
         size = 0;
     }
 
-    public boolean contains(Object element) {
+    public boolean contains(Object element) { //linear search
         Node<T> current = head;
         while(current != null) {
             if(current.getValue().equals(element)) {
@@ -137,13 +137,13 @@ public class LinkedList<T> {
         return arr;
     }
 
-    public void add(Object element) {
+    public void add(Object element) { //overload of add method
         Node<T> newNode = new NodeImpl<T>((T) element, null);
         if(isEmpty()) {
             head = newNode;
             tail = newNode;
             size++;
-        } else {
+        } else { //add to end
             tail.setNext(newNode);
             tail = newNode;
             size++;
@@ -152,30 +152,30 @@ public class LinkedList<T> {
     }
 
     public boolean remove(Object element) {
-        Node<T> current = head;
-        if(isEmpty()) {
+        Node<T> current = head; //start at beginning of linked list
+        if(isEmpty()) { //if empty, nothing to remove, return false
             return false;
         }
-        if(current.getValue() == element){
+        if(current.getValue() == element){ //case 1: target is the first element
             head = head.getNext();
             size--;
             return true;
         }
-        while(current.getNext().getValue() != element) {
+        while(current.getNext().getValue() != element) { //case 2: target is NOT first element
             current = current.getNext();
-            if(current == null) {
+            if(current == null) { //reaches end and doesn't find target: exit and return false
                 return false;
             }
         }
-        if(current.getNext().getNext() == null) {
+        if(current.getNext().getNext() == null) {//if found, check if the next node is the last element
             tail = current;
         }
-        current.setNext(current.getNext().getNext());
+        current.setNext(current.getNext().getNext());//removes node by updating next reference
         size--;
         return true;
     }
 
-    public T get(int index) {
+    public T get(int index) { //check for valid index, then iterate through untill you find it
         validIndex(index);
         Node<T> current = head;
         int i = 0;
@@ -187,11 +187,11 @@ public class LinkedList<T> {
     }
 
     public T set(int index, Object element) {
-        validIndex(index);
-        Node<T> current = head;
-        T prevValue = null;
+        validIndex(index); //is this a valid index
+        Node<T> current = head; //starting point for traversing list
+        T prevValue = null; //store the previous value
         int i = 0;
-        if(index == 0) {
+        if(index == 0) { //specified index is start of list
             prevValue = head.getValue();
             head.setValue((T) element);
         } else {
@@ -210,12 +210,12 @@ public class LinkedList<T> {
     }
 
     public void add(int index, Object element) {
-        if(index > size) {
+        if(index > size) { //if index out of bounds, throw exception
             validIndex(index);
         }
         Node<T> current = head;
         int i = 0;
-        if(index == 0) {
+        if(index == 0) { //handle inserting at beginning
             if(isEmpty()) {
                 add(element);
                 return;
@@ -226,12 +226,12 @@ public class LinkedList<T> {
                 return;
             }
 
-        }  else if(index == size) {
+        }  else if(index == size) { //handle inserting at end
             add(element);
             return;
         }
         while(current != null) {
-            if(i == (index - 1)) {
+            if(i == (index - 1)) { //handle inserting at specified index
                 Node<T> temp = current.getNext();
                 Node<T> newNode = new NodeImpl<T>((T) element, temp);
                 current.setNext(newNode);
@@ -244,7 +244,7 @@ public class LinkedList<T> {
         }
     }
 
-    public int indexOf(Object element) {
+    public int indexOf(Object element) { //index of an element
         Node<T> current = head;
         int index = 0;
         while(current != null) {
@@ -254,10 +254,10 @@ public class LinkedList<T> {
             index++;
             current = current.getNext();
         }
-        return -1;
+        return -1; //if it isn't found, return -1
     }
 
-    public int lastIndexOf(Object element) {
+    public int lastIndexOf(Object element) { //find index of last occurrence of specified element
         Node<T> current = head;
         int index = -1;
         int i = 0;
@@ -281,7 +281,7 @@ public class LinkedList<T> {
     }
 
     @Override
-    public String toString() {
+    public String toString() { //overrides toString method, formats differently
         String list = "";
         Node<T> current = head;
         while(current != null) {

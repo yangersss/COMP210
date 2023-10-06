@@ -19,6 +19,10 @@ public class LinkedList<T> {
      * @param i    - index of node to remove
      */
     public void removeAtIndex(int i) {
+        if(i > size || i < 0) { //if index out of bounds, throw exception
+            validIndex(i);
+        }
+
     }
 
 
@@ -175,7 +179,7 @@ public class LinkedList<T> {
         return true;
     }
 
-    public T get(int index) { //check for valid index, then iterate through untill you find it
+    public T get(int index) { //check for valid index, then iterate through until you find it
         validIndex(index);
         Node<T> current = head;
         int i = 0;

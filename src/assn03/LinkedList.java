@@ -5,7 +5,6 @@ public class LinkedList<T> {
     private Node<T> tail = null;
     private int size = 0;
 
-
     /**
      * Task1
      * Remove the node at index i of the list.
@@ -19,10 +18,10 @@ public class LinkedList<T> {
      * @param i    - index of node to remove
      */
     public void removeAtIndex(int i) {
-        if(i > size || i < 0) { //if index out of bounds, throw exception
+        if(i >= size || i < 0) { //if index out of bounds, throw exception
             validIndex(i);
         }
-
+        remove(get(i));
     }
 
 
@@ -44,7 +43,14 @@ public class LinkedList<T> {
      * @return true if the lists have the same elements in the same order, false otherwise
      */
     public boolean isEqual(LinkedList list2) {
-        return false;
+        if (size != list2.size){
+            return false;
+        }else{
+            for (int i = 0; i < size; i++){
+                if(!(this.get(i).equals(list2.get(i)))) return false;
+            }
+            return true;
+        }
     }
 
 

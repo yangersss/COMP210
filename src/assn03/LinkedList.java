@@ -7,7 +7,7 @@ public class LinkedList<T> {
 
 
     /**
-     * Task11
+     * Task1
      * Remove the node at index i of the list.
      * Note that the first element is at index 0
      * If i is larger than the size of the list, throw an IndexOutOfBounds Exception

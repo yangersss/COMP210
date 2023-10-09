@@ -90,6 +90,13 @@ public class LinkedList<T> {
      *
      */
     public void reverse() {
+        if(size() == 0) return;
+        Node prev = null;
+        Node current = head;
+        Node next = null;
+        while (current != null){
+
+        }
     }
 
 

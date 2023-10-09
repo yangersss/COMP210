@@ -90,13 +90,24 @@ public class LinkedList<T> {
      *
      */
     public void reverse() {
-        if(size() == 0) return;
-        Node prev = null;
-        Node current = head;
-        Node next = null;
-        while (current != null){
+        if(size() <= 1) return;
 
+        Node prev = null, current = head, next = null; //3 pointers
+        while (current != null){
+            next = current.getNext();
+            current.setNext(prev);
+            prev = current;
+            current = next;
         }
+        head = prev;
+        /*
+        * Code trace:
+        * 1->2->3 prev=null,current=1,next=null
+        * next=2, 1->null prev=1,current=2
+        * next=3, 1->null 2->1, prev=2,current=3
+        * next=null, 1->null 2->1, 3->2, prev=3,current=null
+        * breaks, because current==null
+        * */
     }
 
 
@@ -122,6 +133,7 @@ public class LinkedList<T> {
      * @param list2
      */
     public void merge(LinkedList list2) {
+
     }
 
 

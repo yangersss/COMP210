@@ -48,6 +48,9 @@ public class Main {
         System.out.println("Task 3: list after removing repeats = " + list3.toString());
 
         // Test task 4
+        System.out.println("list before reversing = " + list3.toString());
+        list3.reverse();
+        System.out.println("Task 4: list after reversing  = " + list3.toString());
 
         // Test task 4
     }

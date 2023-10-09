@@ -18,7 +18,7 @@ public class LinkedList<T> {
      * @param i    - index of node to remove
      */
     public void removeAtIndex(int i) {
-        if(i >= size || i < 0) { //if index out of bounds, throw exception
+        if(i >= size() || i < 0) { //if index out of bounds, throw exception
             validIndex(i);
         }
         remove(get(i));
@@ -43,11 +43,11 @@ public class LinkedList<T> {
      * @return true if the lists have the same elements in the same order, false otherwise
      */
     public boolean isEqual(LinkedList list2) {
-        if (size != list2.size){
+        if (size() != list2.size()){
             return false;
         }else{
             for (int i = 0; i < size; i++){
-                if(!(this.get(i).equals(list2.get(i)))) return false;
+                if(!(get(i).equals(list2.get(i)))) return false;
             }
             return true;
         }
@@ -63,6 +63,19 @@ public class LinkedList<T> {
      *
      */
     public void removeRepeats() {
+        if (size() <= 1){
+            return;
+        }
+        Object previous = get(0);
+        int i = 1;
+        while (i < size()){
+            if(previous.equals(get(i))){
+                removeAtIndex(i);
+                i--;
+            }
+            previous = get(i);
+            i++;
+        }
     }
 
 

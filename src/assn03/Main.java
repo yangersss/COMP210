@@ -35,9 +35,17 @@ public class Main {
         System.out.println("Task 2: list == list2 ?: " + list.isEqual(list2)); // not yet implemented
 
         // Test task 3
-        System.out.println("list before removing repeats = " + list.toString());
-        list.removeRepeats();
-        System.out.println("Task 3: list after removing repeats = " + list.toString());
+        LinkedList list3 = new LinkedList();
+        list3.add(5);
+        list3.add(10);
+        list3.add(10);
+        list3.add(10);
+        list3.add(15);
+        list3.add(20);
+        list3.add(20);
+        System.out.println("list before removing repeats = " + list3.toString());
+        list3.removeRepeats();
+        System.out.println("Task 3: list after removing repeats = " + list3.toString());
 
         // Test task 4
 

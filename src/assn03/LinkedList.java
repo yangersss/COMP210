@@ -133,7 +133,18 @@ public class LinkedList<T> {
      * @param list2
      */
     public void merge(LinkedList list2) {
+        /*
+        * Two pointers:
+        * index to keep track of where we are in list
+        * i to keep track of where we are in list2
+        * iterate through list2, when we add an element, we must ALSO increment index
+        * */
 
+        int index = 1; //start with index 1 because we always add elements from list2 starting at index1, then we "alternate" between the two lists
+        for (int i = 0; i < list2.size(); i++) {
+            add(i + index, list2.get(i));
+            index++;
+        }
     }
 
 
@@ -179,7 +190,7 @@ public class LinkedList<T> {
         return arr;
     }
 
-    public void add(Object element) { //overload of add method
+    public void add(Object element) { //overload of add method, adds to end
         Node<T> newNode = new NodeImpl<T>((T) element, null);
         if(isEmpty()) {
             head = newNode;
@@ -251,7 +262,7 @@ public class LinkedList<T> {
         return prevValue;
     }
 
-    public void add(int index, Object element) {
+    public void add(int index, Object element) { //overload, see above method. adds specified element at specified index
         if(index > size) { //if index out of bounds, throw exception
             validIndex(index);
         }

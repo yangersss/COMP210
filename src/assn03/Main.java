@@ -52,6 +52,37 @@ public class Main {
         list3.reverse();
         System.out.println("Task 4: list after reversing  = " + list3.toString());
 
-        // Test task 4
+        // Test task 5
+
+        /*list: 1 -> 2 -> 3 -> 4
+        list2: 5 -> 6
+        return 1 -> 5 -> 2 -> 6 -> 3 -> 4*/
+
+        LinkedList list4 = new LinkedList();
+        list4.add(1);
+        list4.add(2);
+        list4.add(3);
+        list4.add(4);
+        LinkedList list5 = new LinkedList();
+        list5.add(5);
+        list5.add(6);
+        System.out.println("List4 = " + list4.toString());
+        System.out.println("List5 = " + list5.toString());
+        list4.merge(list5);
+        System.out.println("List4 after merging = " + list4.toString());
+
+        //test 2 for task 5
+        LinkedList list6 = new LinkedList();
+        list6.add(1);
+        list6.add(2);
+        list6.add(3);
+        LinkedList list7 = new LinkedList();
+        list7.add(4);
+        list7.add(5);
+        list7.add(6);
+        System.out.println("List6 = " + list6.toString());
+        System.out.println("List7 = " + list7.toString());
+        list6.merge(list7);
+        System.out.println("List6 after merging = " + list6.toString());
     }
 }

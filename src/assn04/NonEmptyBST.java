@@ -38,11 +38,24 @@ public class NonEmptyBST<T extends Comparable<T>> implements BST<T> {
 		* */
 		// find the node first
 		// if (_left.isEmpty() && _right.isEmpty()) return new EmptyBST<>(); //if tree is only one element
-		//if it's a leaf delete the parent reference to it
+
+		if (_right.isEmpty()){
+			if(_right.getElement().equals(element)){
+				//do the things, is it a leaf? one child? two?
+			}
+		}
+		else if (_left.isEmpty()){
+			if (_left.getElement().equals(element)){
+
+			}
+		}
 
 		//search for it first
-		BST<T> parent = null;
-		if (element.compareTo(_element) >= 0) _right.remove(element);
+		else if (element.compareTo(_element) > 0) _right.remove(element);
+		else _left.remove(element);
+
+		//if this one's right is target, do the things
+		//otherwise, the lef
 
 		// if it has one child
 		// if it has two children

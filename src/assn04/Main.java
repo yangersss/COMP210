@@ -19,8 +19,9 @@ public class Main {
     bst.insert(47);
     System.out.println(bst.findMin());
     //bst.remove();
-    //bst.printPreOrderTraversal();
-    //bst.printPostOrderTraversal();
+    bst.printPreOrderTraversal();
+    System.out.println("");
+    bst.printPostOrderTraversal();
 
   }
 

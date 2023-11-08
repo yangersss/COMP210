@@ -14,6 +14,7 @@ public class Main {
         /*
         Part 1 - Write some tests to convince yourself that your code for Part 1 is working
          */
+        System.out.println("hell world");
     }
 
     // test Part 2

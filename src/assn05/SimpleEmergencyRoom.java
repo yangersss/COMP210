@@ -12,7 +12,17 @@ public class SimpleEmergencyRoom {
 
     // TODO: dequeue
     public Patient dequeue() {
-    	return null;
+    	if (patients.size() == 0) return null;
+        else{
+            Patient highest = patients.get(0);
+            for (int i = 1; i < patients.size(); i++) {
+                if (patients.get(i).getPriority().compareTo(highest.getPriority()) > 0){
+                    highest = patients.get(i);
+                }
+            }
+            patients.remove(highest);
+            return highest;
+        }
     }
 
     public <V, P> void addPatient(V value, P priority) {

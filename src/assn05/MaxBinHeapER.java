@@ -55,10 +55,4 @@ public class MaxBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
         Prioritized<V,P>[] result = (Prioritized<V, P>[]) Array.newInstance(Prioritized.class, size());
         return _heap.toArray(result);
     }
-
-
-
-
-
-
 }

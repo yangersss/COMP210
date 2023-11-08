@@ -14,7 +14,13 @@ public class Main {
         /*
         Part 1 - Write some tests to convince yourself that your code for Part 1 is working
          */
-        System.out.println("hell world");
+        SimpleEmergencyRoom room = new SimpleEmergencyRoom();
+        room.addPatient("Patient2", 2);
+        room.addPatient("Patient1", 1);
+        room.addPatient("Patient3", 3);
+        System.out.println(room.dequeue().getValue());
+        System.out.println(room.dequeue().getValue());
+        System.out.println(room.dequeue().getValue());
     }
 
     // test Part 2

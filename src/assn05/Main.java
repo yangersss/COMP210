@@ -7,7 +7,7 @@ public class Main {
         testP1();
         System.out.println("Test 2");
         testP2();
-//        testP3();
+        testP3();
         testP4();
     }
 

@@ -2,6 +2,7 @@ package assn05;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MaxBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V, P> {
@@ -21,8 +22,17 @@ public class MaxBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
     public MaxBinHeapER(Prioritized<V, P>[] initialEntries ) {
         /*
         Build heap:
-
+        set index to parent index of last node
+        while not done: (i > 0)
+            bubble down at i
+            decrement i
          */
+        _heap = Arrays.asList(initialEntries);
+        int index = (_heap.size()-1)/2;
+        while (index > 0){
+            bubbleDown(index);
+            index--;
+        }
     }
 
     @Override
@@ -67,21 +77,9 @@ public class MaxBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
 
         V top = _heap.get(0).getValue();
         _heap.set(0, _heap.get(_heap.size() - 1));
-
+        _heap.remove(_heap.size() - 1);
         //bubble down
-        int index = 0;
-        while (2 * index + 2 < _heap.size()){ //while the (hypothetical) child's indices are valid
-            int left = 2 * index + 1;
-            int right = 2 * index + 2;
-            if (_heap.get(left).getPriority().compareTo(_heap.get(right).getPriority()) > 0) { //left is bigger than right
-                swap(index, left);
-                index = left;
-            }
-            else {
-                swap(index, right);
-                index = right;
-            }
-        }
+        bubbleDown(0);
         return top;
     }
 
@@ -102,6 +100,26 @@ public class MaxBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
             }
             index = parentIndex;
         }
+    }
+
+    private void bubbleDown(int index){
+        while (2 * index + 2 < _heap.size()){ //while the (hypothetical) child's indices are valid
+            int left = 2 * index + 1;
+            int right = 2 * index + 2;
+            int child;
+            if (_heap.get(left).getPriority().compareTo(_heap.get(right).getPriority()) > 0) { //left is bigger than right
+                child = left;
+            }
+            else child = right;
+
+            //must account for if parent is larger than child
+            if (_heap.get(index).getPriority().compareTo(_heap.get(child).getPriority()) < 0){
+                swap(index, child);
+                index = child;
+            }
+            else break;
+        }
+
     }
 
     // TODO: getMax

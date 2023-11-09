@@ -3,7 +3,9 @@ package assn05;
 public class Main {
 
     public static void main(String[] args) {
+        System.out.println("Test 1");
         testP1();
+        System.out.println("Test 2");
         testP2();
 //        testP3();
         testP4();
@@ -31,6 +33,7 @@ public class Main {
         MaxBinHeapER heap = new MaxBinHeapER();
         heap.enqueue("Patient2", 2);
         heap.enqueue("Patient1", 1);
+        heap.enqueue("Patient3", 3);
         heap.dequeue();
         heap.dequeue();
     }

@@ -19,7 +19,10 @@ public class MaxBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
      */
     // TODO (Part 3): overloaded constructor
     public MaxBinHeapER(Prioritized<V, P>[] initialEntries ) {
+        /*
+        Build heap:
 
+         */
     }
 
     @Override
@@ -59,12 +62,26 @@ public class MaxBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
             find max of left/right and swap
             recurse down
          */
+
+        if (_heap.size() == 0) return null;
+
         V top = _heap.get(0).getValue();
         _heap.set(0, _heap.get(_heap.size() - 1));
 
         //bubble down
         int index = 0;
-
+        while (2 * index + 2 < _heap.size()){ //while the (hypothetical) child's indices are valid
+            int left = 2 * index + 1;
+            int right = 2 * index + 2;
+            if (_heap.get(left).getPriority().compareTo(_heap.get(right).getPriority()) > 0) { //left is bigger than right
+                swap(index, left);
+                index = left;
+            }
+            else {
+                swap(index, right);
+                index = right;
+            }
+        }
         return top;
     }
 
@@ -79,12 +96,9 @@ public class MaxBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
         int index = _heap.size() - 1;
         while (index > 0) {
             int parentIndex = (index-1)/2;
-            Prioritized parent = _heap.get(parentIndex);
 
             if (_heap.get(index).getPriority().compareTo(_heap.get(parentIndex).getPriority()) > 0){
-                Prioritized temp = _heap.get(index);
-                _heap.set(index, parent);
-                _heap.set(parentIndex, temp);
+                swap(index, parentIndex);
             }
             index = parentIndex;
         }
@@ -93,7 +107,8 @@ public class MaxBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
     // TODO: getMax
     @Override
     public V getMax() {
-       return null;
+       if (_heap.size() == 0) return null;
+       return _heap.get(0).getValue();
     }
 
     @Override

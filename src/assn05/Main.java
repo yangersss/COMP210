@@ -27,7 +27,12 @@ public class Main {
     public static void testP2(){
        /*
         Part 2 - Write some tests to convince yourself that your code for Part 2 is working
-         */
+       */
+        MaxBinHeapER heap = new MaxBinHeapER();
+        heap.enqueue("Patient2", 2);
+        heap.enqueue("Patient1", 1);
+        heap.dequeue();
+        heap.dequeue();
     }
 
     /*

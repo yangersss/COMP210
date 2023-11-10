@@ -9,6 +9,7 @@ public class Main {
         testP2();
         testP3();
         testP4();
+        //quickTest();
     }
 
     // test Part 1
@@ -57,6 +58,29 @@ public class Main {
                /*
         Part 4 - Write some tests to convince yourself that your code for Part 4 is working
          */
+        System.out.println("Starting task 4, printing nanoseconds:");
+        double[] arr = compareRuntimes();
+        for (double element : arr) {
+            System.out.println(element);
+        }
+    }
+
+    public static void quickTest(){
+
+        MaxBinHeapER binHeap = new MaxBinHeapER();
+        double elements = 1e7;
+        for (double i = 0; i < elements; i++) binHeap.enqueue(i);
+
+        // Code for (Task 4.2) Here
+        double startingTime = System.nanoTime();
+
+        while (binHeap.size() > 0){
+            binHeap.dequeue();
+        }
+
+        double elapsedTime = System.nanoTime() - startingTime;
+        System.out.println("Ten million elements in a heap :" + elapsedTime);
+        System.out.println(elapsedTime/elements);
 
     }
 
@@ -87,17 +111,29 @@ public class Main {
         fillER(simplePQ);
 
         // Code for (Task 4.1) Here
+        double startingTime = System.nanoTime();
 
+        while (simplePQ.size() > 0){
+            simplePQ.dequeue();
+        }
+
+        results[0] = System.nanoTime() - startingTime;
+        results[1] = results[0]/100000;
 
         MaxBinHeapER binHeap = new MaxBinHeapER();
         fillER(binHeap);
 
         // Code for (Task 4.2) Here
+        startingTime = System.nanoTime();
+
+        while (binHeap.size() > 0){
+            binHeap.dequeue();
+        }
+
+        results[2] = System.nanoTime() - startingTime;
+        results[3] = results[2]/100000;
 
         return results;
     }
 
 }
-
-
-

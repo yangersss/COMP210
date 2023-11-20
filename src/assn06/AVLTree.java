@@ -1,5 +1,8 @@
 package assn06;
 
+import assn04.EmptyBST;
+import assn04.NonEmptyBST;
+
 public class AVLTree<T extends Comparable<T>> implements SelfBalancingBST<T> {
     // Fields
     private T _value;
@@ -66,15 +69,42 @@ public class AVLTree<T extends Comparable<T>> implements SelfBalancingBST<T> {
     @Override
     public SelfBalancingBST<T> insert(T element) {
     	// TODO
+        //insertion
+        if (this.isEmpty()) _value = element;
+        else if (element.compareTo(_value) >= 0 && _right.isEmpty()) _right._value = element;
+        else if (element.compareTo(_value) < 0 && _left.isEmpty()) _left._value = element;
+        else if (element.compareTo(_value) >= 0) _right.insert(element);
+        else _left.insert(element);
+        //self-balancing
 
-        return null;
+        _size ++;
+        return this;
     }
 
     @Override
     public SelfBalancingBST<T> remove(T element) {
     	// TODO
+        /*
+        first, search (go left, go right)
+        if it's a leaf, delete parent reference to it
+        DECREASE SIZE WHEN REMOVING TODO
+        */
+        //remove
+        if (_value.compareTo(element) < 0) _left = (AVLTree<T>) _left.remove(element);
+        else if (_value.compareTo(element) > 0) _right = (AVLTree<T>) _right.remove(element);
+        else{
+            if (_left.isEmpty() && _right.isEmpty()) return new AVLTree<T>(); // leaf
+            else if (_left.isEmpty()) return _right; // single child
+            else if (_right.isEmpty()) return _left;
+            else { //two children
+                _value = _right.findMin();
+                _right = (AVLTree<T>) _right.remove(_right.findMin());
+            }
+        }
+        //self-balancing
 
-        return null;
+
+        return this;
     }
 
     @Override
@@ -104,9 +134,9 @@ public class AVLTree<T extends Comparable<T>> implements SelfBalancingBST<T> {
     @Override
     public boolean contains(T element) {
     	// TODO
-        if (this._left.isEmpty() && this._right.isEmpty() && !(this._value.equals(element))) return false;
-        else if (this._value.equals(element)) return true;
-        else if (this._value.compareTo(element) < 0) return _left.contains(element);
+        if (_value == null) return false;
+        else if (_value.equals(element)) return true;
+        else if (_value.compareTo(element) < 0) return _left.contains(element);
         else return _right.contains(element);
     }
 

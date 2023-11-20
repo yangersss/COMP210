@@ -1,7 +1,23 @@
 package assn06;
 
+import assn04.BST;
+import assn04.NonEmptyBST;
+
 public class Main {
     public static void main(String[] args) {
+
+        System.out.println("testing insertion and deletion without self-balancing or rotation: ");
+        AVLTree<Integer> tree = new AVLTree<>();
+        tree.insert(78);
+        tree.insert(31);
+        tree.insert(84);
+        tree.insert(13);
+        tree.insert(38);
+        tree.insert(10);
+        tree.insert(40);
+        tree.insert(12);
+        tree.insert(39);
+        tree.insert(47);
 
         // Create a new empty tree.
         SelfBalancingBST<Integer> avl_bst = new AVLTree<>();

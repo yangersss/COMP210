@@ -24,8 +24,12 @@ public class AVLTree<T extends Comparable<T>> implements SelfBalancingBST<T> {
          // You should implement left rotation and then use this 
          // method as needed when fixing imbalances.
     	 // TODO
+         AVLTree<T> root = this._right;
+         AVLTree<T> temp = this._right._left;
+         this._right._left = this;
+         this._right = temp;
 
-         return null;
+         return root;
      }
     
     /**
@@ -36,8 +40,12 @@ public class AVLTree<T extends Comparable<T>> implements SelfBalancingBST<T> {
          // You should implement right rotation and then use this 
          // method as needed when fixing imbalances.
     	 // TODO
+         AVLTree<T> root = this._left;
+         AVLTree<T> temp = this._left._right;
+         this._left._right = this;
+         this._left = temp;
 
-         return null;
+         return root;
      }
 
     @Override
@@ -96,8 +104,10 @@ public class AVLTree<T extends Comparable<T>> implements SelfBalancingBST<T> {
     @Override
     public boolean contains(T element) {
     	// TODO
-
-        return false;
+        if (this._left.isEmpty() && this._right.isEmpty() && !(this._value.equals(element))) return false;
+        else if (this._value.equals(element)) return true;
+        else if (this._value.compareTo(element) < 0) return _left.contains(element);
+        else return _right.contains(element);
     }
 
     @Override

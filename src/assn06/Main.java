@@ -19,6 +19,11 @@ public class Main {
         tree.insert(39);
         tree.insert(47);
 
+        System.out.println("height and size");
+        System.out.println(tree.height());
+        System.out.println(tree.size());
+
+        System.out.println("testing with given code");
         // Create a new empty tree.
         SelfBalancingBST<Integer> avl_bst = new AVLTree<>();
 
@@ -30,7 +35,10 @@ public class Main {
         for (int i=0; i<50; i++) {
             avl_bst = avl_bst.insert((int) (Math.random()*100));
         }
+        System.out.println("height and size after 50 random:");
         System.out.println(avl_bst.height());
+        System.out.println(avl_bst.size());
+
 
         // Now insert 50 integers in increasing order which would
         // cause a simple BST to become very tall but for our
@@ -38,6 +46,8 @@ public class Main {
         for (int i=0; i<50; i++) {
             avl_bst = avl_bst.insert(i);
         }
+        System.out.println("height and size after 50 increasing:");
         System.out.println(avl_bst.height());
+        System.out.println(avl_bst.size());
     }
 }

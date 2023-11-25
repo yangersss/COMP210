@@ -1,8 +1,5 @@
 package assn06;
 
-import assn04.EmptyBST;
-import assn04.NonEmptyBST;
-
 public class AVLTree<T extends Comparable<T>> implements SelfBalancingBST<T> {
     // Fields
     private T _value;
@@ -32,6 +29,13 @@ public class AVLTree<T extends Comparable<T>> implements SelfBalancingBST<T> {
          this._right._left = this;
          this._right = temp;
 
+         //now adjust height and size
+         _height = 1 + Math.max(_left == null ? -1 : _left._height, _right == null ? -1 : _right._height);
+         root._height = 1 + Math.max(root._left._height, root._right == null ? -1 : root._right._height);
+
+         _size = 1 + (_left == null ? 0 : _left._size) + (_right == null ? 0 : _right._size);
+         root._size = 1 + (root._left._size) + (root._right == null ? 0 : root._right._size);
+
          return root;
      }
     
@@ -47,6 +51,13 @@ public class AVLTree<T extends Comparable<T>> implements SelfBalancingBST<T> {
          AVLTree<T> temp = this._left._right;
          this._left._right = this;
          this._left = temp;
+
+         //like in rotateLeft()
+         _height = 1 + Math.max(_left == null ? -1 : _left._height, _right == null ? -1 : _right._height);
+         root._height = 1 + Math.max(root._left._height, root._right == null ? -1 : root._right._height);
+
+         _size = 1 + (_left == null ? 0 : _left._size) + (_right == null ? 0 : _right._size);
+         root._size = 1 + (root._left._size) + (root._right == null ? 0 : root._right._size);
 
          return root;
      }
@@ -70,11 +81,25 @@ public class AVLTree<T extends Comparable<T>> implements SelfBalancingBST<T> {
     public SelfBalancingBST<T> insert(T element) {
     	// TODO
         //insertion
-        if (this.isEmpty()) _value = element;
-        else if (element.compareTo(_value) >= 0 && _right.isEmpty()) _right._value = element;
-        else if (element.compareTo(_value) < 0 && _left.isEmpty()) _left._value = element;
-        else if (element.compareTo(_value) >= 0) _right.insert(element);
-        else _left.insert(element);
+        if (this.isEmpty()){
+            _value = element;
+            _size = 1;
+            _height = 0;
+        }
+        else if (element.compareTo(_value) >= 0){
+            if (_right == null) _right = new AVLTree<>();
+            _right = (AVLTree<T>) _right.insert(element);
+        }
+        else{
+            if (_left == null) _left = new AVLTree<>();
+            _left = (AVLTree<T>) _left.insert(element);
+        }
+        //update size and height
+        //size = 1+size of left and right
+        //height = 1+max(height of left and right)
+        _size = 1 + (_left == null ? 0 : _left._size) + (_right == null ? 0 : _right._size);
+        _height = 1 + Math.max(_left == null ? -1 : _left._height, _right == null ? -1 : _right._height);
+
         //self-balancing
 
         _size ++;
@@ -89,18 +114,21 @@ public class AVLTree<T extends Comparable<T>> implements SelfBalancingBST<T> {
         if it's a leaf, delete parent reference to it
         DECREASE SIZE WHEN REMOVING TODO
         */
-        //remove
         if (_value.compareTo(element) < 0) _left = (AVLTree<T>) _left.remove(element);
         else if (_value.compareTo(element) > 0) _right = (AVLTree<T>) _right.remove(element);
-        else{
-            if (_left.isEmpty() && _right.isEmpty()) return new AVLTree<T>(); // leaf
-            else if (_left.isEmpty()) return _right; // single child
-            else if (_right.isEmpty()) return _left;
+        else{ //found node
+            if (_left == null && _right == null) return new AVLTree<>(); // leaf
+            else if (_left == null) return _right; // single child
+            else if (_right == null) return _left;
             else { //two children
                 _value = _right.findMin();
                 _right = (AVLTree<T>) _right.remove(_right.findMin());
             }
         }
+        //update size and height like in insert()
+        _size = 1 + (_left == null ? 0 : _left._size) + (_right == null ? 0 : _right._size);
+        _height = 1 + Math.max(_left == null ? -1 : _left._height, _right == null ? -1 : _right._height);
+
         //self-balancing
 
 

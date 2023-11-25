@@ -1,11 +1,7 @@
 package assn06;
 
-import assn04.BST;
-import assn04.NonEmptyBST;
-
 public class Main {
     public static void main(String[] args) {
-
         System.out.println("testing insertion and deletion without self-balancing or rotation: ");
         AVLTree<Integer> tree = new AVLTree<>();
         tree.insert(78);
@@ -19,7 +15,16 @@ public class Main {
         tree.insert(39);
         tree.insert(47);
 
-        System.out.println("height and size");
+        System.out.println("height and size after insertion");
+        System.out.println(tree.height());
+        System.out.println(tree.size());
+
+        tree.remove(40);
+        tree.remove(84);
+        tree.remove(12);
+        tree.remove(31);
+        tree.remove(1337);
+        System.out.println("height and size after removal");
         System.out.println(tree.height());
         System.out.println(tree.size());
 
@@ -45,6 +50,9 @@ public class Main {
         // self-balancing tree won't be too bad (should be 7)
         for (int i=0; i<50; i++) {
             avl_bst = avl_bst.insert(i);
+            System.out.println("okay, inserted, now height and size:");
+            System.out.println(avl_bst.height());
+            System.out.println(avl_bst.size());
         }
         System.out.println("height and size after 50 increasing:");
         System.out.println(avl_bst.height());

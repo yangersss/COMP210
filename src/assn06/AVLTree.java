@@ -82,27 +82,30 @@ public class AVLTree<T extends Comparable<T>> implements SelfBalancingBST<T> {
     	// TODO
         //insertion
         if (this.isEmpty()){
+            //System.out.println("if this.isEmpty()");
             _value = element;
             _size = 1;
             _height = 0;
+        } else {
+            //System.out.println("entered the else statement");
+            if (element.compareTo(_value) >= 0) {
+                //System.out.println("if element.compareTo(_value) >= 0");
+                if (_right == null) _right = new AVLTree<>();
+                _right = (AVLTree<T>) _right.insert(element);
+            } else {
+                //System.out.println("2nd else statement");
+                if (_left == null) _left = new AVLTree<>();
+                _left = (AVLTree<T>) _left.insert(element);
+            }
+            //update size and height
+            //size = 1+size of left and right
+            //height = 1+max(height of left and right)
+            //System.out.println("updating size + height");
+            _size = 1 + (_left == null ? 0 : _left._size) + (_right == null ? 0 : _right._size);
+            _height = 1 + Math.max(_left == null ? -1 : _left._height, _right == null ? -1 : _right._height);
         }
-        else if (element.compareTo(_value) >= 0){
-            if (_right == null) _right = new AVLTree<>();
-            _right = (AVLTree<T>) _right.insert(element);
-        }
-        else{
-            if (_left == null) _left = new AVLTree<>();
-            _left = (AVLTree<T>) _left.insert(element);
-        }
-        //update size and height
-        //size = 1+size of left and right
-        //height = 1+max(height of left and right)
-        _size = 1 + (_left == null ? 0 : _left._size) + (_right == null ? 0 : _right._size);
-        _height = 1 + Math.max(_left == null ? -1 : _left._height, _right == null ? -1 : _right._height);
-
         //self-balancing
 
-        _size ++;
         return this;
     }
 
@@ -114,23 +117,46 @@ public class AVLTree<T extends Comparable<T>> implements SelfBalancingBST<T> {
         if it's a leaf, delete parent reference to it
         DECREASE SIZE WHEN REMOVING TODO
         */
-        if (_value.compareTo(element) < 0) _left = (AVLTree<T>) _left.remove(element);
-        else if (_value.compareTo(element) > 0) _right = (AVLTree<T>) _right.remove(element);
-        else{ //found node
-            if (_left == null && _right == null) return new AVLTree<>(); // leaf
-            else if (_left == null) return _right; // single child
-            else if (_right == null) return _left;
-            else { //two children
-                _value = _right.findMin();
-                _right = (AVLTree<T>) _right.remove(_right.findMin());
+        System.out.println("called remove function");
+        if (this == null) {
+            System.out.println("Node not found, nothing to remove");
+            return this;
+        }
+
+        if (element.compareTo(_value) < 0){
+            if (_left != null){
+                System.out.println("go left");
+                _left = (AVLTree<T>) _left.remove(element);
             }
         }
-        //update size and height like in insert()
+        else if (element.compareTo(_value) > 0){
+            if (_right != null){
+                System.out.println("go right");
+                _right = (AVLTree<T>) _right.remove(element);
+            }
+        }
+        else{ //found node
+            System.out.println("found node");
+            if (_left != null && _right != null){
+                _value = _right.findMin();
+                _right = (AVLTree<T>) _right.remove(_value);
+            } else if (_left != null) {
+                System.out.println("node with only left child");
+                return _left;
+            } else if (_right != null) {
+                System.out.println("node with only right child");
+                return _right;
+            } else {
+                System.out.println("leaf node");
+                return null;
+            }
+        }
+
+        //update size and height
         _size = 1 + (_left == null ? 0 : _left._size) + (_right == null ? 0 : _right._size);
         _height = 1 + Math.max(_left == null ? -1 : _left._height, _right == null ? -1 : _right._height);
 
-        //self-balancing
-
+        //self balancing
 
         return this;
     }
@@ -140,7 +166,7 @@ public class AVLTree<T extends Comparable<T>> implements SelfBalancingBST<T> {
          if (isEmpty()) {
              throw new RuntimeException("Illegal operation on empty tree");
          }
-         if (_left.isEmpty()) {
+         if (_left == null) {
              return _value;
          } else {
              return _left.findMin();

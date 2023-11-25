@@ -20,7 +20,7 @@ public class Main {
     System.out.println(bst.findMin());
     //bst.remove();
     bst.printPreOrderTraversal();
-    System.out.println("");
+    System.out.println();
     bst.printPostOrderTraversal();
 
   }

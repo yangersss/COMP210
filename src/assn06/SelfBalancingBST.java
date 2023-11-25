@@ -17,6 +17,8 @@ public interface SelfBalancingBST<T extends Comparable<T>> {
      */
     int size();
 
+    void printPreOrderTraversal();
+
     /**
      * Inserts element into tree and returns resulting
      * tree (i.e. root) after insertion. Depending on implementation,

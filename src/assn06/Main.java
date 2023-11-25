@@ -39,6 +39,8 @@ public class Main {
         // result should be about 6.
         for (int i=0; i<50; i++) {
             avl_bst = avl_bst.insert((int) (Math.random()*100));
+            avl_bst.printPreOrderTraversal();
+            System.out.println();
         }
         System.out.println("height and size after 50 random:");
         System.out.println(avl_bst.height());
@@ -50,9 +52,11 @@ public class Main {
         // self-balancing tree won't be too bad (should be 7)
         for (int i=0; i<50; i++) {
             avl_bst = avl_bst.insert(i);
-            System.out.println("okay, inserted, now height and size:");
-            System.out.println(avl_bst.height());
-            System.out.println(avl_bst.size());
+            avl_bst.printPreOrderTraversal();
+            System.out.println();
+//            System.out.println("okay, inserted, now height and size:");
+//            System.out.println(avl_bst.height());
+//            System.out.println(avl_bst.size());
         }
         System.out.println("height and size after 50 increasing:");
         System.out.println(avl_bst.height());

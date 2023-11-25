@@ -17,7 +17,8 @@ public class NonEmptyBST<T extends Comparable<T>> implements BST<T> {
 		//base case: if it goes into the left, if it goes into the right
 		if (element.compareTo(_element) >= 0 && _right.isEmpty())
 			_right = new NonEmptyBST<T>(element); //if the right is empty and it goes in the right
-		else if (element.compareTo(_element) < 0 && _left.isEmpty()) _left = new NonEmptyBST<T>(element);
+		else if (element.compareTo(_element) < 0 && _left.isEmpty())
+			_left = new NonEmptyBST<T>(element);
 		else if (element.compareTo(_element) >= 0) _right.insert(element);
 		else _left.insert(element);
 		return this;

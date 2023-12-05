@@ -22,19 +22,19 @@ public class PasswordManager<K,V> implements Map<K,V> {
             _passwords[index] = new Account(key, value);
         }
         else{ //insert at tail of list
-            Account x = _passwords[index];
-            while (x.getNext() != null) {
-                if (x.getWebsite().equals(key)) {
-                    x.setPassword(value);
+            Account current = _passwords[index];
+            while (current.getNext() != null) {
+                if (current.getWebsite().equals(key)) {
+                    current.setPassword(value);
                     return;
                 }
-                x = x.getNext();
+                current = current.getNext();
             }
-            if (x.getWebsite().equals(key)) {
-                x.setPassword(value);
+            if (current.getWebsite().equals(key)) {
+                current.setPassword(value);
                 return;
             }
-            x.setNext(new Account(key, value));
+            current.setNext(new Account(key, value));
         }
         size++;
     }
@@ -44,18 +44,18 @@ public class PasswordManager<K,V> implements Map<K,V> {
     public V get(K key) {
         int index = Math.abs(key.hashCode()) % 50;
 
-        Account x = _passwords[index];
+        Account current = _passwords[index];
 
-        if (x == null) return null;
+        if (current == null) return null;
 
-        if (x.getWebsite().equals(key)) {//check head node
-            return (V) x.getPassword();
+        if (current.getWebsite().equals(key)) {//check head node
+            return (V) current.getPassword();
         }
 
-        while (x.getNext() != null) {
-            x = x.getNext();
-            if (x.getWebsite().equals(key)) {
-                return (V) x.getPassword();
+        while (current.getNext() != null) {
+            current = current.getNext();
+            if (current.getWebsite().equals(key)) {
+                return (V) current.getPassword();
             }
         }
         return null;
@@ -73,11 +73,11 @@ public class PasswordManager<K,V> implements Map<K,V> {
         Set<K> set = new HashSet<>();
 
         for (int i = 0; i < _passwords.length; i++){
-            Account x = _passwords[i];
+            Account current = _passwords[i];
 
-            while (x != null) {
-                set.add((K) x.getWebsite());
-                x = x.getNext();
+            while (current!= null) {
+                set.add((K) current.getWebsite());
+                current = current.getNext();
             }
         }
         return set;
@@ -88,25 +88,28 @@ public class PasswordManager<K,V> implements Map<K,V> {
     public V remove(K key) {
         int index = Math.abs(key.hashCode()) % 50;
 
-        Account x = _passwords[index]; //start at beginning of LL
+        Account current = _passwords[index]; //start at beginning of LL
 
-        if (x == null) return null; //if it's not there
-        if (x.getWebsite().equals(key)){//case 1: target is 1st element
-            V temp = (V) x.getWebsite();
-            x = x.getNext();
+        if (current == null) return null; //if it's not there
+        if (current.getWebsite().equals(key)){//case 1: target is 1st element
+            V temp = (V) current.getPassword();
+            _passwords[index] = current.getNext();
             size--;
             return temp;
         }
-        while(x.getNext().getWebsite() != key) { //case 2: target is NOT first element
-            x = x.getNext();
-            if(x == null) { //reaches end and doesn't find target: exit and return false
-                return null;
+        Account prev = current; //case 2: target is NOT 1st element
+        current = current.getNext();
+        while(current != null){
+            if (current.getWebsite().equals(key)) {
+                V temp = (V) current.getPassword();
+                prev.setNext(current.getNext());
+                size--;
+                return temp;
             }
+            prev = current; //traverses through LL
+            current = current.getNext();
         }
-        V temp = (V) x.getWebsite();
-        x.setNext(x.getNext().getNext());//removes node by updating next reference
-        size--;
-        return temp;
+        return null; //we didn't find it
     }
 
     // TODO: checkDuplicate
@@ -115,11 +118,11 @@ public class PasswordManager<K,V> implements Map<K,V> {
         List<K> list = new ArrayList<>();
 
         for (int i = 0; i < _passwords.length; i++){
-            Account x = _passwords[i];
+            Account current = _passwords[i];
 
-            while (x != null) {
-                if (x.getPassword().equals(value)) list.add((K) x.getWebsite());
-                x = x.getNext();
+            while (current!= null) {
+                if (current.getPassword().equals(value)) list.add((K) current.getWebsite());
+                current = current.getNext();
             }
         }
         return list;

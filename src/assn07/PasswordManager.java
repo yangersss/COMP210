@@ -49,11 +49,16 @@ public class PasswordManager<K,V> implements Map<K,V> {
 
         Account x = _passwords[index];
 
+        if (x == null) return null;
+
+        if (x.getWebsite().equals(key)) {//check head node
+            return (V) x.getPassword();
+        }
+
         while (x.getNext() != null) {
+            x = x.getNext();
             if (x.getWebsite().equals(key)) {
                 return (V) x.getPassword();
-            } else {
-                x = x.getNext();
             }
         }
         return null;
@@ -73,11 +78,11 @@ public class PasswordManager<K,V> implements Map<K,V> {
         for (int i = 0; i < _passwords.length; i++){
             Account x = _passwords[i];
 
-            while (x.getNext() != null) {
+            while (x != null) {
+                set.add((K) x.getWebsite());
                 x = x.getNext();
             }
         }
-
         return set;
     }
 

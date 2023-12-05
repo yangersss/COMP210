@@ -1,9 +1,6 @@
 package assn07;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class PasswordManager<K,V> implements Map<K,V> {
     private static final String MASTER_PASSWORD = "password321";
@@ -89,13 +86,43 @@ public class PasswordManager<K,V> implements Map<K,V> {
     // TODO: remove
     @Override
     public V remove(K key) {
-        return null;
+        int index = Math.abs(key.hashCode()) % 50;
+
+        Account x = _passwords[index]; //start at beginning of LL
+
+        if (x == null) return null; //if it's not there
+        if (x.getWebsite().equals(key)){//case 1: target is 1st element
+            V temp = (V) x.getWebsite();
+            x = x.getNext();
+            size--;
+            return temp;
+        }
+        while(x.getNext().getWebsite() != key) { //case 2: target is NOT first element
+            x = x.getNext();
+            if(x == null) { //reaches end and doesn't find target: exit and return false
+                return null;
+            }
+        }
+        V temp = (V) x.getWebsite();
+        x.setNext(x.getNext().getNext());//removes node by updating next reference
+        size--;
+        return temp;
     }
 
     // TODO: checkDuplicate
     @Override
     public List<K> checkDuplicate(V value) {
-        return null;
+        List<K> list = new ArrayList<>();
+
+        for (int i = 0; i < _passwords.length; i++){
+            Account x = _passwords[i];
+
+            while (x != null) {
+                if (x.getPassword().equals(value)) list.add((K) x.getWebsite());
+                x = x.getNext();
+            }
+        }
+        return list;
     }
 
     // TODO: checkMasterPassword

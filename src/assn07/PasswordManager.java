@@ -20,14 +20,23 @@ public class PasswordManager<K,V> implements Map<K,V> {
     // TODO: put
     @Override
     public void put(K key, V value) {
-        int index = key.hashCode() % 50;
+        int index = Math.abs(key.hashCode()) % 50;
         if (_passwords[index] == null) { //if nothing is in this slot, create new LL
             _passwords[index] = new Account(key, value);
         }
         else{ //insert at tail of list
-            Account x = _passwords[index].getNext();
-            while (x.getNext() != null)
+            Account x = _passwords[index];
+            while (x.getNext() != null) {
+                if (x.getWebsite().equals(key)) {
+                    x.setPassword(value);
+                    return;
+                }
                 x = x.getNext();
+            }
+            if (x.getWebsite().equals(key)) {
+                x.setPassword(value);
+                return;
+            }
             x.setNext(new Account(key, value));
         }
         size++;
@@ -36,7 +45,7 @@ public class PasswordManager<K,V> implements Map<K,V> {
     // TODO: get
     @Override
     public V get(K key) {
-        int index = key.hashCode() % 50;
+        int index = Math.abs(key.hashCode()) % 50;
 
         Account x = _passwords[index];
 

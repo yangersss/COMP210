@@ -34,5 +34,5 @@ public class Account <K,V> {
         _next = next;
     }
 
-
+    //public boolean nextNull(){ return _next == null; }
 }

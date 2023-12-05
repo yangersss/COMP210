@@ -1,38 +1,75 @@
 package assn07;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
 public class PasswordManager<K,V> implements Map<K,V> {
-    private static final String MASTER_PASSWORD = "YOUR PASSWORD HERE";
+    private static final String MASTER_PASSWORD = "password321";
     private Account[] _passwords;
+
+    private int size;
 
     public PasswordManager() {
         _passwords = new Account[50];
+        size = 0;
     }
 
 
     // TODO: put
     @Override
-    public void put(K key, V value) { }
+    public void put(K key, V value) {
+        int index = key.hashCode() % 50;
+        if (_passwords[index] == null) { //if nothing is in this slot, create new LL
+            _passwords[index] = new Account(key, value);
+        }
+        else{ //insert at tail of list
+            Account x = _passwords[index].getNext();
+            while (x.getNext() != null)
+                x = x.getNext();
+            x.setNext(new Account(key, value));
+        }
+        size++;
+    }
 
     // TODO: get
     @Override
     public V get(K key) {
+        int index = key.hashCode() % 50;
+
+        Account x = _passwords[index];
+
+        while (x.getNext() != null) {
+            if (x.getWebsite().equals(key)) {
+                return (V) x.getPassword();
+            } else {
+                x = x.getNext();
+            }
+        }
         return null;
     }
 
     // TODO: size
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     // TODO: keySet
     @Override
     public Set<K> keySet() {
-        return null;
+        Set<K> set = new HashSet<>();
+
+        for (int i = 0; i < _passwords.length; i++){
+            Account x = _passwords[i];
+
+            while (x.getNext() != null) {
+                x = x.getNext();
+            }
+        }
+
+        return set;
     }
 
     // TODO: remove
@@ -50,7 +87,7 @@ public class PasswordManager<K,V> implements Map<K,V> {
     // TODO: checkMasterPassword
     @Override
     public boolean checkMasterPassword(String enteredPassword) {
-        return false;
+        return enteredPassword.equals(MASTER_PASSWORD);
     }
 
     /*
